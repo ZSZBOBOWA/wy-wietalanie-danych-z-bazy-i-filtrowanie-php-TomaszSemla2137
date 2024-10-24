@@ -11,17 +11,16 @@ $servername = "localhost";
 $username = "root";
 $password ="";
 $dbname ="p_edu";
-$conn = mysli_connect($servername, $username, $password, $dbname);
+$conn = mysqli_connect($servername, $username, $password, $dbname);
 if(!$conn){
-    die("błąd połączenia:" mysqli_connect_error());
+    die("błąd połączenia:".mysqli_connect_error());
 }
 $sql = "select * from uczniowie";
 $result = mysqli_query($conn, $sql);
 if(mysqli_num_rows($result) >0){
     echo "<table border='1'><tr><th>Imię</th><th>Nazwisko</th><th>Wiek</th></tr>";
 while($row = mysqli_fetch_assoc($result)){
-    echo "<tr><td>".$row["imie"]."</td><td>".$row["nazwisko"]."</td><td>".$row["wiek"]."</td></tr>"
-}
+    echo "<tr><td>".$row["Imie"]."</td><td>".$row["Nazwisko"]."</td><td>".$row["Wiek"]."</td></tr>";}
 echo "</table>";
 }
 else {
