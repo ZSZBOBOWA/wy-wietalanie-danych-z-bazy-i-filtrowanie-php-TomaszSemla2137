@@ -6,6 +6,10 @@
     <title>Document</title>
 </head>
 <body>
+    <form method="post" action="index.php">
+        Wpisz nazwisko: <input type="text" name="Nazwisko">
+        <input type="submit" value="Filtruj">
+</form>
     <?php
 $servername = "localhost";
 $username = "root";
@@ -15,7 +19,14 @@ $conn = mysqli_connect($servername, $username, $password, $dbname);
 if(!$conn){
     die("błąd połączenia:".mysqli_connect_error());
 }
+if(isset($_POST['Nazwisko']) && $_POST['Nazwisko'] != ''){
+    $nazwisko = $_POST['Nazwisko'];
+    $nazwisko = mysqli_real_escape_string($conn, $nazwisko);
+    $sql = "select * from uczniowie where Nazwisko = '$nazwisko'";
+}
+else{
 $sql = "select * from uczniowie";
+}
 $result = mysqli_query($conn, $sql);
 if(mysqli_num_rows($result) >0){
     echo "<table border='1'><tr><th>Imię</th><th>Nazwisko</th><th>Wiek</th></tr>";
